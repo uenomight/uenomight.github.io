@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>まいトピック — 上野舞斗</title>
+<title>まいトピック — 上野舞斗 | My Topic — Maito Ueno</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -34,6 +34,10 @@
     letter-spacing: 0.02em;
     -webkit-font-smoothing: antialiased;
   }
+
+  /* ─── Language Toggle Logic ─── */
+  body.lang-ja [data-lang="en"] { display: none !important; }
+  body.lang-en [data-lang="ja"] { display: none !important; }
 
   ::selection {
     background: var(--accent);
@@ -150,6 +154,7 @@
     display: flex;
     gap: 2rem;
     list-style: none;
+    align-items: center;
   }
 
   .nav-links a {
@@ -174,6 +179,24 @@
 
   .nav-links a:hover { color: var(--accent); }
   .nav-links a:hover::after { width: 100%; }
+
+  .lang-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .lang-toggle-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 
   /* ─── Sections ─── */
   section {
@@ -219,7 +242,7 @@
     padding: 1.5rem 0;
     border-bottom: 1px solid var(--border);
     display: grid;
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 140px 1fr;
     gap: 1rem;
     align-items: baseline;
   }
@@ -299,37 +322,6 @@
   .pub-meta {
     font-size: 0.8rem;
     color: var(--muted);
-  }
-
-  /* ─── Activities ─── */
-  .activity-list {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .activity-item {
-    display: grid;
-    grid-template-columns: 8px 1fr;
-    gap: 1.2rem;
-    align-items: start;
-    padding: 1rem 0;
-  }
-
-  .activity-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    margin-top: 0.6rem;
-  }
-
-  .activity-text {
-    font-size: 0.88rem;
-    line-height: 1.9;
-  }
-
-  .activity-text strong {
-    font-weight: 500;
   }
 
   /* ─── Blog Placeholder ─── */
@@ -442,14 +434,7 @@
   }
 
   /* ─── Loading / API ─── */
-  .loading-text {
-    font-size: 0.85rem;
-    color: var(--muted);
-    font-style: italic;
-    padding: 1rem 0;
-  }
-
-  .error-text {
+  .loading-text, .error-text {
     font-size: 0.85rem;
     color: var(--muted);
     padding: 1rem 0;
@@ -467,14 +452,8 @@
 
   /* ─── Animations ─── */
   @keyframes fadeSlideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .reveal {
@@ -490,146 +469,224 @@
 
   /* ─── Mobile ─── */
   @media (max-width: 640px) {
-    .profile-item {
-      grid-template-columns: 1fr;
-      gap: 0.3rem;
-    }
-
-    .blog-entry {
-      grid-template-columns: 1fr;
-      gap: 0.3rem;
-    }
-
-    .nav-links { gap: 1.2rem; }
+    .profile-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    .blog-entry { grid-template-columns: 1fr; gap: 0.3rem; }
+    .nav-links { gap: 1rem; }
     .nav-links a { font-size: 0.72rem; }
-
-    footer {
-      flex-direction: column;
-      gap: 1rem;
-      text-align: center;
-    }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
   }
 </style>
 </head>
-<body>
+<body class="lang-ja">
 
-<!-- Navigation -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">まいトピック</a>
+  <a href="#" class="nav-logo">
+    <span data-lang="ja">まいトピック</span>
+    <span data-lang="en">My Topic</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#profile">Profile</a></li>
     <li><a href="#research">Research</a></li>
     <li><a href="#publications">Publications</a></li>
     <li><a href="#blog">Blog</a></li>
+    <li><button class="lang-toggle-btn" id="lang-btn" onclick="toggleLang()">EN</button></li>
   </ul>
 </nav>
 
-<!-- Hero -->
 <header>
   <div class="header-inner">
-    <h1 class="site-title"><em>まいト</em>ピック</h1>
-    <p class="site-subtitle">My Topic — Maito Ueno</p>
+    <h1 class="site-title">
+      <span data-lang="ja"><em>まいト</em>ピック</span>
+      <span data-lang="en"><em>Migh</em>Topic</span>
+    </h1>
+    <p class="site-subtitle">MighTopic — Maito Ueno</p>
     <div class="header-line"></div>
     <p class="site-desc">
-      四天王寺大学文学部国際コミュニケーション学科の上野舞斗です。<br>
-      ここは上野の個人ページで、所属する組織や団体とは関係ありません。<br>
+      <span data-lang="ja">
+        四天王寺大学文学部国際コミュニケーション学科の上野舞斗です。<br>
+        ここは上野の個人ページで、所属する組織や団体とは関係ありません。
+      </span>
+      <span data-lang="en">
+        I am Maito Ueno, Ph.D. in Foreign Language Education. I am Lecturer at the Department of International Communication, Faculty of Letters, Shitennoji University, Japan.<br>
+        This is my personal page and is not affiliated with any organization or group I belong to.
+      </span>
     </p>
   </div>
 </header>
 
-<!-- Profile -->
 <section id="profile" class="reveal">
   <p class="section-label">About</p>
-  <h2 class="section-title">こんな人です</h2>
+  <h2 class="section-title">
+    <span data-lang="ja">こんな人です</span>
+    <span data-lang="en">About Me</span>
+  </h2>
   <div class="section-divider"></div>
   <div class="profile-grid">
     <div class="profile-item">
-      <span class="profile-key">名前</span>
-      <span class="profile-value">上野舞斗（うえの・まいと）</span>
+      <span class="profile-key">
+        <span data-lang="ja">名前</span>
+        <span data-lang="en">Name</span>
+      </span>
+      <span class="profile-value">
+        <span data-lang="ja">上野舞斗（うえの・まいと）</span>
+        <span data-lang="en">Maito Ueno</span>
+      </span>
     </div>
     <div class="profile-item">
-      <span class="profile-key">所属</span>
-      <span class="profile-value">四天王寺大学 文学部国際コミュニケーション学科 講師</span>
+      <span class="profile-key">
+        <span data-lang="ja">所属</span>
+        <span data-lang="en">Affiliation</span>
+      </span>
+      <span class="profile-value">
+        <span data-lang="ja">四天王寺大学 文学部国際コミュニケーション学科 講師</span>
+        <span data-lang="en">Lecturer, Department of International Communication, Faculty of Arts, Shitennoji University</span>
+      </span>
     </div>
     <div class="profile-item">
-      <span class="profile-key">興味</span>
-      <span class="profile-value"><strong>日本英語教育史</strong> — 特に発音をどのように学んでいたのかに興味あり<br><strong>英語音声教育</strong> — 母語を活用した発音学習・指導に興味あり<br><strong>生成AI活用</strong> — 生成AIの音声はどんなもの？どう使える？に興味あり</span>
+      <span class="profile-key">
+        <span data-lang="ja">興味</span>
+        <span data-lang="en">Interests</span>
+      </span>
+      <span class="profile-value">
+        <span data-lang="ja">
+          <strong>日本英語教育史</strong> — 特に発音をどのように学んでいたのかに興味あり<br>
+          <strong>英語音声教育</strong> — 母語を活用した発音学習・指導に興味あり<br>
+          <strong>生成AI活用</strong> — 生成AIの音声はどんなもの？どう使える？に興味あり
+        </span>
+        <span data-lang="en">
+          <strong>History of English Education in Japan</strong> — Particularly interested in how pronunciation was learned.<br>
+          <strong>English Pronunciation Learning & Teaching</strong> — Interested in pronunciation learning and teaching utilizing the native language.<br>
+          <strong>Utilization of Generative AI</strong> — Interested in the acoustics of AI-generated speech and its educational applications.
+        </span>
+      </span>
     </div>
     <div class="profile-item">
-      <span class="profile-key">学会まわり</span>
-      <span class="profile-value">日本英語教育史学会、外国語教育メディア学会、日本実践英語音声学会、英語教育研究サークル学分会などなど</span>
+      <span class="profile-key">
+        <span data-lang="ja">学会まわり</span>
+        <span data-lang="en">Societies</span>
+      </span>
+      <span class="profile-value">
+        <span data-lang="ja">日本英語教育史学会、外国語教育メディア学会、日本実践英語音声学会、英語教育研究サークル学分会などなど</span>
+        <span data-lang="en">The Historical Society of English Studies in Japan, The Japan Association for Language Education and Technology, The Japan Association for the Study of Teaching English Pronunciation, English Education Research Circle Manabunkai, etc.</span>
+      </span>
     </div>
   </div>
   <a href="https://researchmap.jp/umight" target="_blank" class="rm-link">
-    もっとちゃんとしたプロフィールは researchmap で
+    <span data-lang="ja">もっとちゃんとしたプロフィールは researchmap で</span>
+    <span data-lang="en">For a detailed profile, visit researchmap</span>
     <svg viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42L17.59 5H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
   </a>
 </section>
 
-<!-- Research -->
 <section id="research" class="reveal">
   <p class="section-label">Research</p>
-  <h2 class="section-title">こんなことを調べています</h2>
+  <h2 class="section-title">
+    <span data-lang="ja">こんなことを調べています</span>
+    <span data-lang="en">What I am Researching</span>
+  </h2>
   <div class="section-divider"></div>
 
   <div class="research-card">
-    <h3>日本英語教育史</h3>
-    <p>第二言語習得もいいですが、これからの日本の外国語教育を考えるヒントは歴史にもあると思います</p>
+    <h3>
+      <span data-lang="ja">日本英語教育史</span>
+      <span data-lang="en">History of English Education in Japan</span>
+    </h3>
+    <p>
+      <span data-lang="ja">第二言語習得もいいですが、これからの日本の外国語教育を考えるヒントは歴史にもあると思います</span>
+      <span data-lang="en">Second language acquisition is important, but I believe historical studies also hold crucial clues for the future of foreign language education in Japan.</span>
+    </p>
   </div>
 
   <div class="research-card">
-    <h3>英語音声教育</h3>
-    <p>わたしも英語の発音、苦手でした。英語はなんだか日本語と違う。それが苦手意識の源でした。母語の力を借りて英語の発音を学び、教える方法を考えています</p>
+    <h3>
+      <span data-lang="ja">英語音声教育</span>
+      <span data-lang="en">English Pronunciation Learning & Teaching</span>
+    </h3>
+    <p>
+      <span data-lang="ja">わたしも英語の発音、苦手でした。英語はなんだか日本語と違う。それが苦手意識の源でした。母語の力を借りて英語の発音を学び、教える方法を考えています</span>
+      <span data-lang="en">I used to struggle with English pronunciation. English just feels fundamentally different from Japanese, which was the source of my weakness. I am exploring ways to learn and teach English pronunciation by leveraging the power of our first language.</span>
+    </p>
   </div>
 
   <div class="research-card">
-    <h3>生成AI活用</h3>
-    <p>AIが作る英語音声を音響分析したり、学習のための活用法を考えたり...</p>
+    <h3>
+      <span data-lang="ja">生成AI活用</span>
+      <span data-lang="en">Utilization of Generative AI</span>
+    </h3>
+    <p>
+      <span data-lang="ja">AIが作る英語音声を音響分析したり、学習のための活用法を考えたり...</span>
+      <span data-lang="en">Acoustic analysis of AI-generated English speech and exploring its practical applications for language learning.</span>
+    </p>
   </div>
 </section>
 
-<!-- Publications -->
 <section id="publications" class="reveal">
   <p class="section-label">Publications</p>
-  <h2 class="section-title">書いたもの・話したこと</h2>
+  <h2 class="section-title">
+    <span data-lang="ja">書いたもの・話したこと</span>
+    <span data-lang="en">Publications & Presentations</span>
+  </h2>
   <div class="section-divider"></div>
 
-  <h3 style="font-family:'Shippori Mincho',serif; font-size:1.05rem; font-weight:500; margin-bottom:1.5rem; letter-spacing:0.04em;">最近書いたこと</h3>
+  <h3 style="font-family:'Shippori Mincho',serif; font-size:1.05rem; font-weight:500; margin-bottom:1.5rem; letter-spacing:0.04em;">
+    <span data-lang="ja">最近書いたこと</span>
+    <span data-lang="en">Recent Publications</span>
+  </h3>
   <div id="written-list">
-    <p class="loading-text">researchmap から読み込み中…</p>
+    <p class="loading-text">
+      <span data-lang="ja">researchmap から読み込み中…</span>
+      <span data-lang="en">Loading from researchmap...</span>
+    </p>
   </div>
 
-  <h3 style="font-family:'Shippori Mincho',serif; font-size:1.05rem; font-weight:500; margin:2.5rem 0 1.5rem; letter-spacing:0.04em;">最近話したこと</h3>
+  <h3 style="font-family:'Shippori Mincho',serif; font-size:1.05rem; font-weight:500; margin:2.5rem 0 1.5rem; letter-spacing:0.04em;">
+    <span data-lang="ja">最近話したこと</span>
+    <span data-lang="en">Recent Presentations</span>
+  </h3>
   <div id="talks-list">
-    <p class="loading-text">researchmap から読み込み中…</p>
+    <p class="loading-text">
+      <span data-lang="ja">researchmap から読み込み中…</span>
+      <span data-lang="en">Loading from researchmap...</span>
+    </p>
   </div>
 
   <a href="https://researchmap.jp/umight" target="_blank" class="rm-link">
-    全部見たい方は researchmap へどうぞ
+    <span data-lang="ja">全部見たい方は researchmap へどうぞ</span>
+    <span data-lang="en">See all on researchmap</span>
     <svg viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42L17.59 5H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
   </a>
 </section>
 
-<!-- Blog -->
 <section id="blog" class="reveal">
   <p class="section-label">Blog</p>
-  <h2 class="section-title">つれづれ</h2>
+  <h2 class="section-title">
+    <span data-lang="ja">つれづれ</span>
+    <span data-lang="en">Journal</span>
+  </h2>
   <div class="section-divider"></div>
 
   <div class="blog-preview">
     <div class="blog-entry">
       <span class="blog-date">2026.03.18</span>
       <div>
-        <p class="blog-title-text">サイトを作ってみた</p>
-        <p class="blog-excerpt">ウェブサイトを開設しました。続くかどうかは自分でもわかりません。</p>
+        <p class="blog-title-text">
+          <span data-lang="ja">サイトを作ってみた</span>
+          <span data-lang="en">Created a Website</span>
+        </p>
+        <p class="blog-excerpt">
+          <span data-lang="ja">ウェブサイトを開設しました。続くかどうかは自分でもわかりません。</span>
+          <span data-lang="en">I have launched my personal website. I'm not sure if I'll keep it up, though.</span>
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
-  <p class="footer-text">&copy; 2026 上野舞斗 — まいトピック</p>
+  <p class="footer-text">
+    <span data-lang="ja">&copy; 2026 上野舞斗 — まいトピック</span>
+    <span data-lang="en">&copy; 2026 Maito Ueno — My Topic</span>
+  </p>
   <div class="footer-links">
     <a href="https://researchmap.jp/umight" target="_blank">researchmap</a>
     <a href="#" target="_blank">Contact</a>
@@ -637,6 +694,23 @@
 </footer>
 
 <script>
+  // ─── Language Toggle ───
+  let currentLang = 'ja';
+  function toggleLang() {
+    const btn = document.getElementById('lang-btn');
+    if (currentLang === 'ja') {
+      currentLang = 'en';
+      document.body.classList.remove('lang-ja');
+      document.body.classList.add('lang-en');
+      btn.textContent = 'JP';
+    } else {
+      currentLang = 'ja';
+      document.body.classList.remove('lang-en');
+      document.body.classList.add('lang-ja');
+      btn.textContent = 'EN';
+    }
+  }
+
   // ─── Nav scroll effect ───
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -659,35 +733,28 @@
   const PERMALINK = 'umight';
   const API_BASE = `https://api.researchmap.jp/${PERMALINK}`;
 
-  // Helper: get Japanese or first available title
+  // Helper: 英語があれば英語を、なければ日本語を取得する
   function getTitle(item) {
-    if (item.paper_title) {
-      return item.paper_title.ja || item.paper_title.en || '';
-    }
-    if (item.book_title) {
-      return item.book_title.ja || item.book_title.en || '';
-    }
-    if (item.presentation_title) {
-      return item.presentation_title.ja || item.presentation_title.en || '';
-    }
-    if (item.misc_title) {
-      return item.misc_title.ja || item.misc_title.en || '';
-    }
+    if (item.paper_title) return item.paper_title.en || item.paper_title.ja || '';
+    if (item.book_title) return item.book_title.en || item.book_title.ja || '';
+    if (item.presentation_title) return item.presentation_title.en || item.presentation_title.ja || '';
+    if (item.misc_title) return item.misc_title.en || item.misc_title.ja || '';
     return '';
   }
 
-  // Helper: get publication name / venue with volume info
+  // Helper: 雑誌名や学会名なども英語優先
   function getVenue(item) {
     let name = '';
-    if (item.publication_name) name = item.publication_name.ja || item.publication_name.en || '';
-    else if (item.publisher) name = item.publisher.ja || item.publisher.en || '';
+    if (item.publication_name) name = item.publication_name.en || item.publication_name.ja || '';
+    else if (item.publisher) name = item.publisher.en || item.publisher.ja || '';
     else if (item.event) {
       if (typeof item.event === 'string') name = item.event;
-      else name = item.event.ja || item.event.en || '';
+      else name = item.event.en || item.event.ja || '';
     }
     else if (item.presentation_type) {
-      const types = { invited: '招待講演', oral: '口頭発表', poster: 'ポスター発表' };
-      name = types[item.presentation_type] || '';
+      const typesEn = { invited: 'Invited Lecture', oral: 'Oral Presentation', poster: 'Poster Presentation' };
+      const typesJa = { invited: '招待講演', oral: '口頭発表', poster: 'ポスター発表' };
+      name = typesEn[item.presentation_type] || typesJa[item.presentation_type] || '';
     }
     // Append volume, issue, starting_page
     const parts = [];
@@ -704,14 +771,6 @@
     return name.trim();
   }
 
-  // Helper: get year from date string
-  function getYear(item) {
-    const d = item.publication_date || item.from_event_date || item.event_date || '';
-    if (!d) return '';
-    return d.substring(0, 4);
-  }
-
-  // Helper: get year-month (e.g. "2025-03") for written items
   function getYearMonth(item) {
     const d = item.publication_date || item.from_event_date || item.event_date || '';
     if (!d) return '';
@@ -719,39 +778,38 @@
     return d.substring(0, 4);
   }
 
-  // Helper: get type label
+  // Helper: ラベルもバイリンガル対応（表示切り替え）
   function getTypeLabel(item, category) {
-    if (category === 'books_etc') return 'Book';
-    if (category === 'published_papers') return 'Paper';
-    if (category === 'misc') return 'MISC';
-    if (category === 'presentations') {
-      if (item.invited) return '招待パネル発表';
-      return '口頭発表';
+    let ja = '', en = '';
+    if (category === 'books_etc') { ja = '書籍'; en = 'Book'; }
+    else if (category === 'published_papers') { ja = '論文'; en = 'Paper'; }
+    else if (category === 'misc') { ja = 'MISC'; en = 'MISC'; }
+    else if (category === 'presentations') {
+      if (item.invited) { ja = '招待講演'; en = 'Invited'; }
+      else { ja = '口頭発表'; en = 'Presentation'; }
     }
-    return '';
+    return `<span data-lang="ja">${ja}</span><span data-lang="en">${en}</span>`;
   }
 
-  // Helper: get authors/presenters (API returns {ja: [{name:"..."}, ...], en: [...]})
+  // Helper: 著者名も英語優先
   function getAuthors(item) {
     const src = item.authors || item.presenters;
     if (!src) return '';
-    const authorList = src.ja || src.en || [];
+    const authorList = src.en || src.ja || [];
     if (!Array.isArray(authorList)) return String(authorList);
     return authorList.map(a => {
       if (typeof a === 'string') return a;
-      if (typeof a === 'object' && a !== null) return a.name || a.ja || Object.values(a).join(' ');
+      if (typeof a === 'object' && a !== null) return a.en || a.ja || a.name || Object.values(a).join(' ');
       return '';
     }).filter(Boolean).join(', ');
   }
 
-  // Helper: get full date (e.g. "2026-03-07") for presentations
   function getFullDate(item) {
     const d = item.from_event_date || item.event_date || item.publication_date || '';
     if (!d) return '';
-    return d.substring(0, 10); // "YYYY-MM-DD" or shorter
+    return d.substring(0, 10);
   }
 
-  // Render a single pub item
   function renderPubItem(item, category) {
     const title = getTitle(item);
     if (!title) return '';
@@ -781,7 +839,6 @@
       </div>`;
   }
 
-  // Fetch and render
   async function fetchAndRender(endpoint, containerId, limit = 10) {
     const container = document.getElementById(containerId);
     try {
@@ -790,17 +847,24 @@
       const data = await res.json();
       const items = data.items || [];
       if (items.length === 0) {
-        container.innerHTML = '<p class="error-text">データがありませんでした。</p>';
+        container.innerHTML = `
+          <p class="error-text">
+            <span data-lang="ja">データがありませんでした。</span>
+            <span data-lang="en">No data available.</span>
+          </p>`;
         return;
       }
       container.innerHTML = items.map(item => renderPubItem(item, endpoint)).join('');
     } catch (err) {
       console.error(`researchmap API error (${endpoint}):`, err);
-      container.innerHTML = `<p class="error-text">読み込めませんでした。<a href="https://researchmap.jp/${PERMALINK}" target="_blank">researchmap</a> で直接ご覧ください。</p>`;
+      container.innerHTML = `
+        <p class="error-text">
+          <span data-lang="ja">読み込めませんでした。<a href="https://researchmap.jp/${PERMALINK}" target="_blank">researchmap</a> で直接ご覧ください。</span>
+          <span data-lang="en">Failed to load. Please visit <a href="https://researchmap.jp/${PERMALINK}" target="_blank">researchmap</a> directly.</span>
+        </p>`;
     }
   }
 
-  // 「書いたこと」= books + papers + misc を新しい順に混ぜて表示
   async function fetchWritten() {
     const container = document.getElementById('written-list');
     try {
@@ -814,34 +878,38 @@
       const papersData = papersRes.ok ? await papersRes.json() : { items: [] };
       const miscData = miscRes.ok ? await miscRes.json() : { items: [] };
 
-      // Tag each item with its category
       const allItems = [
         ...(booksData.items || []).map(i => ({ ...i, _cat: 'books_etc' })),
         ...(papersData.items || []).map(i => ({ ...i, _cat: 'published_papers' })),
         ...(miscData.items || []).map(i => ({ ...i, _cat: 'misc' }))
       ];
 
-      // Sort by date descending
       allItems.sort((a, b) => {
         const da = a.publication_date || '0000';
         const db = b.publication_date || '0000';
         return db.localeCompare(da);
       });
 
-      // Show top 5
       const top = allItems.slice(0, 5);
       if (top.length === 0) {
-        container.innerHTML = '<p class="error-text">データがありませんでした。</p>';
+        container.innerHTML = `
+          <p class="error-text">
+            <span data-lang="ja">データがありませんでした。</span>
+            <span data-lang="en">No data available.</span>
+          </p>`;
         return;
       }
       container.innerHTML = top.map(item => renderPubItem(item, item._cat)).join('');
     } catch (err) {
       console.error('researchmap API error (written):', err);
-      container.innerHTML = `<p class="error-text">読み込めませんでした。<a href="https://researchmap.jp/${PERMALINK}" target="_blank">researchmap</a> で直接ご覧ください。</p>`;
+      container.innerHTML = `
+        <p class="error-text">
+          <span data-lang="ja">読み込めませんでした。<a href="https://researchmap.jp/${PERMALINK}" target="_blank">researchmap</a> で直接ご覧ください。</span>
+          <span data-lang="en">Failed to load. Please visit <a href="https://researchmap.jp/${PERMALINK}" target="_blank">researchmap</a> directly.</span>
+        </p>`;
     }
   }
 
-  // Load on page ready
   fetchWritten();
   fetchAndRender('presentations', 'talks-list', 5);
 </script>
