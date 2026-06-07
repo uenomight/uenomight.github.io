@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>結婚相談室 やまと｜ふたりの「はじまり」に寄り添う</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FBF6EE;
+    --ivory-deep:#F3E9DB;
+    --rose:#9C4A4A;
+    --rose-deep:#7C3636;
+    --gold:#B8915A;
+    --gold-soft:#CBA46A;
+    --ink:#3B322B;
+    --ink-soft:#6B5F54;
+    --blush:#F4E3DC;
+    --line:#E3D5C2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Zen Kaku Gothic New",sans-serif;
+    color:var(--ink);
+    background:var(--ivory);
+    line-height:1.9;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .mincho{font-family:"Shippori Mincho B1",serif;}
+  .latin{font-family:"Cormorant Garamond",serif;letter-spacing:.04em;}
+  h1,h2,h3{font-family:"Shippori Mincho B1",serif;font-weight:500;line-height:1.5;}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ===== HEADER ===== */
+  header{
+    position:fixed;top:0;left:0;width:100%;z-index:100;
+    padding:18px 0;transition:.4s;
+    background:transparent;
+  }
+  header.scrolled{background:rgba(251,246,238,.92);backdrop-filter:blur(10px);box-shadow:0 1px 20px rgba(124,54,54,.06);padding:12px 0;}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:"Shippori Mincho B1",serif;font-size:20px;font-weight:600;letter-spacing:.12em;color:var(--rose-deep)}
+  .logo small{display:block;font-family:"Cormorant Garamond",serif;font-size:11px;letter-spacing:.34em;color:var(--gold);font-weight:500;margin-top:1px}
+  .nav-links{display:flex;gap:30px;align-items:center;font-size:13px;letter-spacing:.08em}
+  .nav-links a{color:var(--ink-soft);transition:.3s}
+  .nav-links a:hover{color:var(--rose)}
+  .nav-cta{background:var(--rose);color:#fff!important;padding:10px 22px;border-radius:40px;font-size:12.5px;letter-spacing:.1em;transition:.3s}
+  .nav-cta:hover{background:var(--rose-deep);transform:translateY(-1px)}
+  @media(max-width:780px){.nav-links a:not(.nav-cta){display:none}}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;
+    background:
+      radial-gradient(ellipse 80% 60% at 78% 30%, rgba(203,164,106,.18), transparent 60%),
+      radial-gradient(ellipse 70% 70% at 12% 80%, rgba(156,74,74,.10), transparent 60%),
+      linear-gradient(160deg,#FDF9F2 0%,#F4E6D7 100%);
+    overflow:hidden;
+  }
+  .hero-ornament{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:560px;height:560px;border:1px solid rgba(184,145,90,.35);border-radius:50%;opacity:.5}
+  .hero-ornament:after{content:"";position:absolute;inset:42px;border:1px solid rgba(156,74,74,.18);border-radius:50%}
+  .petal{position:absolute;color:rgba(156,74,74,.16);font-size:26px;animation:float 9s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-22px) rotate(18deg)}}
+  .hero-inner{position:relative;z-index:2}
+  .hero .eyebrow{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:19px;
+    color:var(--gold);letter-spacing:.18em;margin-bottom:18px;
+    opacity:0;animation:rise .9s .2s forwards;
+  }
+  .hero h1{
+    font-size:clamp(34px,5.6vw,62px);color:var(--ink);line-height:1.45;letter-spacing:.04em;
+    margin-bottom:26px;
+  }
+  .hero h1 .line{display:block;opacity:0;animation:rise 1s forwards}
+  .hero h1 .line:nth-child(1){animation-delay:.35s}
+  .hero h1 .line:nth-child(2){animation-delay:.55s}
+  .hero h1 em{font-style:normal;color:var(--rose);position:relative}
+  .hero h1 em:after{content:"";position:absolute;left:0;bottom:6px;width:100%;height:8px;background:rgba(203,164,106,.32);z-index:-1}
+  .hero p.lead{font-size:16px;color:var(--ink-soft);max-width:480px;margin-bottom:38px;opacity:0;animation:rise 1s .8s forwards}
+  .hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:rise 1s 1s forwards}
+  .btn-primary{
+    background:var(--rose);color:#fff;padding:17px 38px;border-radius:50px;
+    font-size:15px;letter-spacing:.08em;transition:.35s;box-shadow:0 12px 30px rgba(124,54,54,.22);
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .btn-primary:hover{background:var(--rose-deep);transform:translateY(-3px);box-shadow:0 18px 38px rgba(124,54,54,.3)}
+  .btn-ghost{padding:17px 32px;border-radius:50px;border:1px solid var(--gold);color:var(--gold);font-size:15px;letter-spacing:.08em;transition:.35s}
+  .btn-ghost:hover{background:var(--gold);color:#fff}
+  @keyframes rise{to{opacity:1;transform:translateY(0)}}
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ===== SECTION COMMON ===== */
+  section{padding:110px 0}
+  .sec-head{text-align:center;margin-bottom:64px}
+  .sec-head .en{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:17px;letter-spacing:.22em;color:var(--gold);display:block;margin-bottom:12px}
+  .sec-head h2{font-size:clamp(26px,3.6vw,38px);color:var(--ink);letter-spacing:.05em}
+  .sec-head .deco{width:50px;height:1px;background:var(--gold);margin:22px auto 0;position:relative}
+  .sec-head .deco:before{content:"❀";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:var(--gold);font-size:13px;background:var(--ivory);padding:0 8px}
+
+  .reveal{opacity:0;transform:translateY(34px);transition:.9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===== MESSAGE ===== */
+  .message{background:var(--ivory)}
+  .message .box{
+    max-width:720px;margin:0 auto;text-align:center;position:relative;padding:0 20px;
+  }
+  .message .quote{font-family:"Cormorant Garamond",serif;font-size:90px;color:rgba(184,145,90,.3);line-height:.5;height:30px}
+  .message p{font-family:"Shippori Mincho B1",serif;font-size:clamp(18px,2.4vw,24px);line-height:2.3;color:var(--ink);letter-spacing:.04em}
+  .message .sign{margin-top:30px;font-size:14px;color:var(--ink-soft);letter-spacing:.1em}
+  .message .sign b{font-family:"Shippori Mincho B1",serif;color:var(--rose);font-weight:600}
+
+  /* ===== REASONS ===== */
+  .reasons{background:var(--ivory-deep)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .card{
+    background:#fff;border-radius:6px;padding:46px 32px;text-align:center;
+    box-shadow:0 18px 40px rgba(124,54,54,.06);position:relative;transition:.4s;
+    border-top:3px solid var(--gold-soft);
+  }
+  .card:hover{transform:translateY(-8px);box-shadow:0 28px 56px rgba(124,54,54,.12)}
+  .card .num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:44px;color:var(--gold);line-height:1}
+  .card h3{font-size:20px;margin:16px 0 14px;color:var(--rose-deep)}
+  .card p{font-size:14px;color:var(--ink-soft)}
+  @media(max-width:780px){.cards{grid-template-columns:1fr}}
+
+  /* ===== PROFILE ===== */
+  .profile{background:var(--ivory)}
+  .profile-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+  .profile-photo{
+    aspect-ratio:4/5;border-radius:8px;position:relative;
+    background:linear-gradient(150deg,#E9D6C2,#D9B89A);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    box-shadow:0 24px 60px rgba(124,54,54,.16);
+  }
+  .profile-photo span{font-family:"Shippori Mincho B1",serif;color:rgba(124,54,54,.55);font-size:15px;text-align:center;padding:20px}
+  .profile-photo:before{content:"";position:absolute;inset:14px;border:1px solid rgba(255,255,255,.5)}
+  .profile-info .role{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold);font-size:17px;letter-spacing:.16em}
+  .profile-info h2{font-size:34px;margin:6px 0 4px;color:var(--ink)}
+  .profile-info h2 small{font-size:15px;color:var(--ink-soft);font-family:"Zen Kaku Gothic New";font-weight:300;letter-spacing:.1em;margin-left:10px}
+  .profile-info .div{width:46px;height:1px;background:var(--gold);margin:22px 0}
+  .profile-info p{font-size:15px;color:var(--ink-soft);margin-bottom:18px}
+  @media(max-width:780px){.profile-grid{grid-template-columns:1fr;gap:34px}}
+
+  /* ===== FLOW ===== */
+  .flow{background:var(--blush)}
+  .steps{max-width:760px;margin:0 auto}
+  .step{display:flex;gap:28px;padding:28px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+  .step:last-child{border-bottom:none}
+  .step .st-num{
+    flex-shrink:0;width:58px;height:58px;border-radius:50%;background:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:1px solid var(--gold-soft);color:var(--rose);
+  }
+  .step .st-num span{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;color:var(--gold);line-height:1}
+  .step .st-num b{font-family:"Shippori Mincho B1",serif;font-size:22px}
+  .step h3{font-size:19px;color:var(--rose-deep);margin-bottom:6px}
+  .step p{font-size:14px;color:var(--ink-soft)}
+
+  /* ===== PRICE ===== */
+  .price{background:var(--ivory)}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
+  .plan{
+    background:#fff;border:1px solid var(--line);border-radius:8px;padding:40px 28px;text-align:center;transition:.4s;
+  }
+  .plan.feat{border:1.5px solid var(--rose);position:relative;box-shadow:0 22px 50px rgba(124,54,54,.12)}
+  .plan.feat:before{content:"おすすめ";position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--rose);color:#fff;font-size:11px;letter-spacing:.14em;padding:5px 18px;border-radius:30px}
+  .plan h3{font-size:20px;color:var(--rose-deep);margin-bottom:6px}
+  .plan .pr-en{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold);font-size:14px;letter-spacing:.16em;margin-bottom:18px}
+  .plan .amount{font-family:"Shippori Mincho B1",serif;font-size:40px;color:var(--ink);line-height:1}
+  .plan .amount small{font-size:15px;color:var(--ink-soft);font-weight:300;font-family:"Zen Kaku Gothic New"}
+  .plan ul{list-style:none;margin:24px 0 0;text-align:left}
+  .plan li{font-size:13.5px;color:var(--ink-soft);padding:9px 0 9px 24px;position:relative;border-bottom:1px dashed var(--line)}
+  .plan li:before{content:"❀";position:absolute;left:0;color:var(--gold);font-size:11px}
+  @media(max-width:780px){.plans{grid-template-columns:1fr}}
+
+  /* ===== VOICE ===== */
+  .voice{background:var(--ivory-deep)}
+  .voices{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .v-card{background:#fff;border-radius:8px;padding:34px;box-shadow:0 14px 36px rgba(124,54,54,.06)}
+  .v-card .stars{color:var(--gold);letter-spacing:3px;font-size:14px;margin-bottom:12px}
+  .v-card p{font-size:14.5px;color:var(--ink);margin-bottom:16px}
+  .v-card .who{font-size:13px;color:var(--ink-soft);letter-spacing:.06em}
+  .v-card .who b{font-family:"Shippori Mincho B1",serif;color:var(--rose);font-weight:600}
+  @media(max-width:780px){.voices{grid-template-columns:1fr}}
+
+  /* ===== FAQ ===== */
+  .faq{background:var(--ivory)}
+  .faq-list{max-width:760px;margin:0 auto}
+  .qa{border-bottom:1px solid var(--line)}
+  .qa-q{padding:24px 40px 24px 44px;position:relative;cursor:pointer;font-family:"Shippori Mincho B1",serif;font-size:16px;color:var(--ink);transition:.3s}
+  .qa-q:before{content:"Q";position:absolute;left:6px;top:23px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;color:var(--gold)}
+  .qa-q:after{content:"＋";position:absolute;right:8px;top:24px;color:var(--rose);transition:.3s}
+  .qa.open .qa-q:after{transform:rotate(45deg)}
+  .qa-a{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0 44px}
+  .qa-a p{padding:0 0 24px;font-size:14px;color:var(--ink-soft)}
+  .qa.open .qa-a{max-height:240px}
+
+  /* ===== CTA ===== */
+  .cta{
+    padding:120px 0;text-align:center;position:relative;overflow:hidden;
+    background:linear-gradient(150deg,var(--rose) 0%,var(--rose-deep) 100%);color:#fff;
+  }
+  .cta:before,.cta:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.18);border-radius:50%}
+  .cta:before{width:380px;height:380px;top:-140px;left:-100px}
+  .cta:after{width:300px;height:300px;bottom:-120px;right:-80px}
+  .cta .en{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:18px;letter-spacing:.2em;color:var(--gold-soft);display:block;margin-bottom:16px}
+  .cta h2{font-size:clamp(26px,4vw,40px);color:#fff;margin-bottom:18px;letter-spacing:.05em}
+  .cta p{font-size:15px;color:rgba(255,255,255,.85);max-width:540px;margin:0 auto 40px}
+  .cta .btn-primary{background:#fff;color:var(--rose-deep);box-shadow:0 16px 40px rgba(0,0,0,.2)}
+  .cta .btn-primary:hover{background:var(--ivory);transform:translateY(-3px)}
+  .cta .tel{margin-top:26px;font-family:"Shippori Mincho B1",serif;font-size:15px;letter-spacing:.08em;position:relative;z-index:2}
+  .cta .tel b{font-family:"Cormorant Garamond",serif;font-size:30px;letter-spacing:.04em;display:block;margin-top:4px}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:60px 0 30px;text-align:center}
+  footer .logo{color:#fff;margin-bottom:14px}
+  footer .logo small{color:var(--gold-soft)}
+  footer .f-info{font-size:13px;line-height:2;margin:18px 0}
+  footer .copy{font-family:"Cormorant Garamond",serif;font-size:12px;letter-spacing:.18em;color:rgba(255,255,255,.35);margin-top:24px}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap nav">
+    <div class="logo">結婚相談室 やまと<small>MARRIAGE SALON YAMATO</small></div>
+    <nav class="nav-links">
+      <a href="#message">想い</a>
+      <a href="#reasons">選ばれる理由</a>
+      <a href="#profile">カウンセラー</a>
+      <a href="#price">料金</a>
+      <a href="#cta" class="nav-cta">無料相談</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ornament"></div>
+  <span class="petal" style="left:14%;top:22%">❀</span>
+  <span class="petal" style="left:30%;top:70%;animation-delay:2s">❀</span>
+  <span class="petal" style="left:64%;top:18%;animation-delay:4s">❀</span>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">For your beautiful beginning</p>
+    <h1>
+      <span class="line">その<em>ひとめぐり</em>の出会いを、</span>
+      <span class="line">いちばん近くで見守ります。</span>
+    </h1>
+    <p class="lead">「いつか」を「いま」に。婚活の不安も、迷いも。あなたのペースに寄り添いながら、しあわせな結婚へと丁寧に伴走する結婚相談室です。</p>
+    <div class="hero-btns">
+      <a href="#cta" class="btn-primary">無料カウンセリングを予約する →</a>
+      <a href="#reasons" class="btn-ghost">やまとを知る</a>
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGE -->
+<section class="message reveal" id="message">
+  <div class="box">
+    <div class="quote">“</div>
+    <p>結婚は、ゴールではなく<br>あたらしい毎日のはじまり。<br>だからこそ、焦らず、あなたらしく。<br>その一歩を、心を込めてお手伝いします。</p>
+    <div class="sign">結婚相談室 やまと ／ 専任カウンセラー　<b>やまと</b></div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section class="reasons" id="reasons">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="en">Why YAMATO</span>
+      <h2>やまとが選ばれる、3つの理由</h2>
+      <div class="deco"></div>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="num">01</div>
+        <h3>専任カウンセラー制</h3>
+        <p>入会から成婚まで、ずっと同じ担当が伴走。あなたの価値観も歩みも理解したうえで、ぴったりのご縁をご紹介します。</p>
+      </div>
+      <div class="card reveal" style="transition-delay:.12s">
+        <div class="num">02</div>
+        <h3>豊富な出会いの数</h3>
+        <p>大手連盟に加盟し、全国の会員データベースから多くの候補者と出会えます。条件だけでなく「相性」を大切に。</p>
+      </div>
+      <div class="card reveal" style="transition-delay:.24s">
+        <div class="num">03</div>
+        <h3>はじめてでも安心</h3>
+        <p>プロフィール作成、お見合いの作法、プロポーズまで。婚活が初めての方こそ、ひとつずつ丁寧にサポートします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section class="profile" id="profile">
+  <div class="wrap profile-grid">
+    <div class="profile-photo reveal">
+      <span>▢ カウンセラー写真<br>（やまとさんの<br>お写真をここに）</span>
+    </div>
+    <div class="profile-info reveal" style="transition-delay:.12s">
+      <span class="role">Counselor</span>
+      <h2>やまと<small>専任カウンセラー</small></h2>
+      <div class="div"></div>
+      <p>「結婚したいのに、何から始めればいいか分からない」――そんな声に背中を押したくて、この相談室をはじめました。</p>
+      <p>大切にしているのは、相手探しの前に、まず“あなた自身”と向き合うこと。本当に望むしあわせの形が見えたとき、ご縁はぐっと近づきます。お一人おひとりの物語を、最後まで一緒に紡がせてください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="flow" id="flow">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="en">Flow</span>
+      <h2>ご成婚までの流れ</h2>
+      <div class="deco"></div>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="st-num"><span>STEP</span><b>1</b></div><div><h3>無料カウンセリング</h3><p>まずはお話を聞かせてください。婚活のお悩みや理想を伺い、サービスをご説明します。無理な勧誘は一切ありません。</p></div></div>
+      <div class="step reveal"><div class="st-num"><span>STEP</span><b>2</b></div><div><h3>ご入会・プロフィール作成</h3><p>あなたの魅力が伝わるプロフィールを一緒に作成。活動の準備を整えます。</p></div></div>
+      <div class="step reveal"><div class="st-num"><span>STEP</span><b>3</b></div><div><h3>お相手探し・お見合い</h3><p>ご紹介と検索の両方でお相手を探し、お見合いをセッティング。当日の同行サポートも可能です。</p></div></div>
+      <div class="step reveal"><div class="st-num"><span>STEP</span><b>4</b></div><div><h3>交際・プロポーズ</h3><p>交際中の悩みも随時フォロー。タイミングを見て、プロポーズまでしっかり後押しします。</p></div></div>
+      <div class="step reveal"><div class="st-num"><span>STEP</span><b>5</b></div><div><h3>ご成婚</h3><p>晴れて結婚へ。あなたの新しい毎日のはじまりを、心からお祝いします。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section class="price" id="price">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="en">Price</span>
+      <h2>料金プラン</h2>
+      <div class="deco"></div>
+    </div>
+    <div class="plans">
+      <div class="plan reveal">
+        <h3>ライトプラン</h3>
+        <div class="pr-en">Light</div>
+        <div class="amount">9,800<small>円/月</small></div>
+        <ul><li>専任カウンセラー</li><li>月1名のご紹介</li><li>オンライン面談</li></ul>
+      </div>
+      <div class="plan feat reveal" style="transition-delay:.1s">
+        <h3>スタンダード</h3>
+        <div class="pr-en">Standard</div>
+        <div class="amount">15,800<small>円/月</small></div>
+        <ul><li>専任カウンセラー</li><li>月3名のご紹介</li><li>お見合い同行サポート</li><li>交際中フォロー</li></ul>
+      </div>
+      <div class="plan reveal" style="transition-delay:.2s">
+        <h3>プレミアム</h3>
+        <div class="pr-en">Premium</div>
+        <div class="amount">29,800<small>円/月</small></div>
+        <ul><li>紹介人数 無制限</li><li>専属プランニング</li><li>プロポーズ支援</li><li>フォト・服装相談</li></ul>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:13px;color:var(--ink-soft);margin-top:28px">※ 料金は一例です。実際の金額・プラン内容に合わせて書き換えてください。</p>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section class="voice" id="voice">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="en">Voice</span>
+      <h2>ご成婚者さまの声</h2>
+      <div class="deco"></div>
+    </div>
+    <div class="voices">
+      <div class="v-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>「人見知りの私でも、やまとさんがいつも先回りして不安を取り除いてくれました。半年で素敵な人と出会えました。」</p>
+        <div class="who"><b>30代・女性</b>／ご成婚</div>
+      </div>
+      <div class="v-card reveal" style="transition-delay:.12s">
+        <div class="stars">★★★★★</div>
+        <p>「条件だけで選ばず“どんな結婚生活を送りたいか”から考えてくれたのが大きかった。心から信頼できる相談室でした。」</p>
+        <div class="who"><b>40代・男性</b>／ご成婚</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="en">FAQ</span>
+      <h2>よくあるご質問</h2>
+      <div class="deco"></div>
+    </div>
+    <div class="faq-list reveal">
+      <div class="qa"><div class="qa-q">婚活がまったくの初めてでも大丈夫ですか？</div><div class="qa-a"><p>もちろんです。初めての方こそ多くご利用いただいています。プロフィール作りからお見合いの進め方まで、一つずつ丁寧にご案内しますのでご安心ください。</p></div></div>
+      <div class="qa"><div class="qa-q">無料カウンセリングだけでも受けられますか？</div><div class="qa-a"><p>はい。ご相談・ご見学のみでも歓迎です。その場でのご入会を求めることはありませんので、お気軽にお越しください。</p></div></div>
+      <div class="qa"><div class="qa-q">仕事が忙しくても活動できますか？</div><div class="qa-a"><p>オンライン面談やお相手とのやりとりサポートで、お忙しい方も無理なく活動できます。あなたのペースに合わせて進めます。</p></div></div>
+      <div class="qa"><div class="qa-q">成婚までどのくらいかかりますか？</div><div class="qa-a"><p>個人差はありますが、多くの方が半年〜1年ほどでご成婚されています。焦らず着実に進めることを大切にしています。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="wrap">
+    <span class="en">Free Counseling</span>
+    <h2>まずは、お話を聞かせてください。</h2>
+    <p>婚活のお悩みや理想の暮らしを、やまとがじっくりお伺いします。<br>初回カウンセリングは無料。あなたの一歩を、ここから。</p>
+    <a href="#" class="btn-primary">無料カウンセリングを予約する →</a>
+    <div class="tel">お電話でのご予約・ご相談<b>000-0000-0000</b></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo">結婚相談室 やまと<small>MARRIAGE SALON YAMATO</small></div>
+    <div class="f-info">
+      〒000-0000　○○県○○市○○ 0-0-0<br>
+      営業時間 10:00–19:00／定休日 ○曜日　|　TEL 000-0000-0000
+    </div>
+    <div class="copy">© YAMATO MARRIAGE SALON</div>
+  </div>
+</footer>
+
+<script>
+  // header scroll
+  const header=document.getElementById('header');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>40));
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // faq
+  document.querySelectorAll('.qa-q').forEach(q=>q.addEventListener('click',()=>q.parentElement.classList.toggle('open')));
+</script>
+</body>
+</html>
